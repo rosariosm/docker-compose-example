@@ -1,0 +1,37 @@
+#version of docker-compose (3 == latest)
+version: '3'
+#each services that builds the containers
+services:
+
+### Express API ###
+  server:
+    #path for dockerfiles to use to build the container. it's relative to this docker-compose file
+    build: ./dockerize-node    
+    #environment variables
+    environment:
+      API_HOST: ${API_HOST}
+      APP_SERVER_PORT: ${APP_SERVER_PORT}
+    #which port expose to other containers defined in this file
+    expose:
+      - ${APP_SERVER_PORT}
+    #map container port to host machine    
+    ports:
+      - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
+    #map local source code to the container
+    volumes:
+      - ./dockerize-node/:/usr/src/app
+    #command to run after the container is up
+    command: node server.js
+
+### React client app ###
+  client:
+    build: ./dockerize-react
+    environment:
+      - REACT_APP_PORT=${REACT_APP_PORT}
+    expose:
+      - ${REACT_APP_PORT}
+    ports:
+      - ${REACT_APP_PORT}:${REACT_APP_PORT}
+    volumes:
+      - ./dockerize-react/:/app/
+    command: npm run start
