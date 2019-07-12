@@ -19,7 +19,7 @@ services:
       - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
     #map local source code to the container
     volumes:
-      - ./dockerize-node/:/usr/src/app
+      - ./dockerize-node:/usr/src/app
     #command to run after the container is up
     command: node server.js
 
@@ -33,5 +33,5 @@ services:
     ports:
       - ${REACT_APP_PORT}:${REACT_APP_PORT}
     volumes:
-      - ./dockerize-react/:/app/
+      - ./dockerize-react:/app
     command: npm run start

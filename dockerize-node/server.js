@@ -2,10 +2,9 @@
 
 const express = require('express');
 
-//usar variables de ambiente
 
 // Constants
-const PORT = 8000;
+const PORT = process.env.APP_SERVER_PORT;
 const HOST = '0.0.0.0';
 
 // App
