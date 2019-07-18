@@ -8,8 +8,13 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    //Get api / 
-    //Set state with returned value or error msg
+    fetch('http://localhost:8000/')
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data)
+        this.setState({ text: data.foo })
+      })
+      .catch(console.log)
   }
 
   render() {

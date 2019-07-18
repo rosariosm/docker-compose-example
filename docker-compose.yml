@@ -11,10 +11,10 @@ services:
     environment:
       API_HOST: ${API_HOST}
       APP_SERVER_PORT: ${APP_SERVER_PORT}
-    #which port expose to other containers defined in this file
+    #which port expose to other containers defined in this file. it's declarative, only to give information about which port is exposed
     expose:
       - ${APP_SERVER_PORT}
-    #map container port to host machine    
+    #map host machine to container port: host:container
     ports:
       - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
     #map local source code to the container
