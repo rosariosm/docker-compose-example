@@ -11,6 +11,7 @@ services:
     environment:
       API_HOST: ${API_HOST}
       APP_SERVER_PORT: ${APP_SERVER_PORT}
+      MONGO_URI: mongodb://mongo/geekclub
     #which port expose to other containers defined in this file. it's declarative, only to give information about which port is exposed
     expose:
       - ${APP_SERVER_PORT}
@@ -35,3 +36,23 @@ services:
     volumes:
       - ./dockerize-react:/app
     command: npm run start
+
+### Mongo db
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: geekclub
+    #ports:
+    #  - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    depends_on: 
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
